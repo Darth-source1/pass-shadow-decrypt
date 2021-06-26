@@ -3,19 +3,20 @@
 execute this script with root access.
 """
 
-import hashlib
-import re
+import hashlib, re 
+#from os import system, name
 
 #global variables
 user = []
+selection = ""
+file = ""
 class main:
 	
 	def __init__():
 		pass
 	
-	def take_md5():
+	def take_md5(file):
 		
-		file = open("/etc/shadow", "r")
 		#count line for use in loop
 		line_count = 0
 		for line in file:
@@ -30,6 +31,7 @@ class main:
 						x[2] = x[2] + "$" + x[3]		
 						user.append(x[2])
 						print(user)
+						target.search_match()
 						break
 						
 					else:
@@ -46,9 +48,9 @@ class main:
 			for i in user:
 				print(i)
 				if a == user[count]:
-					print("match")
+					print("match in ser {0}".format(count + 1, len(user)))
 				elif count < len(user):
-					print("no match in user {0}".format(count))
+					print("no match in user {0} of {1}".format(count + 1, len(user)))
 					count += 1
 				else:
 					pass
@@ -56,8 +58,32 @@ class main:
 		
 		
 		
+	def started():
+		#Set the source of file
 		
+		print("hello, welcome to the python_md5_decrypt tool")
+		print("select your method")
+		
+		while True:
+			print("1- default 'take from local shadow file'")
+			print("2- select my own file")
+			selection = input("enter the number of your choice: ")
+			if selection == "1":
+				file = open("/etc/shadow", "r")
+				target.take_md5(file)
+				break
+			elif selection == "2":
+				target.my_own_file()
+				break
+			else:
+				pass
+				
+	def my_own_file():
+		url = input("introduce the url of your file example: /etc/mi_file.txt:s \n ")
+		print(url)
+		file = open(url, "r")
+		target.take_md5(file)
+		
+
 target = main
-target.take_md5()
-target.search_match()
-		
+target.started()

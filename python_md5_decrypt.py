@@ -30,7 +30,6 @@ class main:
 						x = temp.split(sep="$", maxsplit=3)
 						x[2] = x[2] + "$" + x[3]		
 						user.append(x[2])
-						print(user)
 						target.search_match()
 						break
 						
@@ -45,15 +44,16 @@ class main:
 			a = i.strip("\n").encode("utf-8")
 			a = hashlib.sha512(a).hexdigest()
 			count = 0
-			for i in user:
-				print(i)
+			for x in user:
 				if a == user[count]:
-					print("match in ser {0}".format(count + 1, len(user)))
+					print("match in user {0} of {1}".format(count + 1, len(user)))
+					print("the password for {0} is {1}".format(count + 1, i))
+					count += 1
 				elif count < len(user):
 					print("no match in user {0} of {1}".format(count + 1, len(user)))
 					count += 1
 				else:
-					pass
+					break
 			break
 		
 		
@@ -73,7 +73,25 @@ class main:
 				target.take_md5(file)
 				break
 			elif selection == "2":
-				target.my_own_file()
+				print("select \n 1- my file is a backup of shadow \n 2- my file is a list of hash")
+				while True:
+					select_own = input("select 1 or 2: \n")
+					if select_own == "1":
+						target.my_own_file()
+					elif select_own == "2":
+						url = input("introduce the url of your file example: /etc/mi_file.txt:s \n ")
+						print(url)
+						file = open(url, "r")
+						for i in file:
+							i = i.split(sep="\n")
+							i = i[0]
+							user.append(i)
+						target.search_match()
+						break
+						
+						
+						
+						
 				break
 			else:
 				pass
